@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const questionElement = document.getElementById('question');
         questionElement.innerText = item.question;
 
+
         // Handle user input and check the answer
         const submitAnswerButton = document.getElementById('submit-answer');
         const answerInput = document.getElementById('answer');
