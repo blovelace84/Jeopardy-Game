@@ -1,0 +1,18 @@
+#jeopardy-board{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.category, .question{
+    padding: 20px;
+    text-align: center;
+    background-color: aqua;
+    color: whitesmoke;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#question-section{
+    margin-top: 20px;
+}
