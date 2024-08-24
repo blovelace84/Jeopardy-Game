@@ -1,3 +1,18 @@
+body{
+    background: rgb(251,63,185);
+background: radial-gradient(circle, rgba(251,63,185,0.829059829059829) 0%, rgba(194,70,252,0.7264957264957265) 100%);
+}
+
+h1{
+    text-align: center;
+    color:black;
+    background-color: purple;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 1em;
+    padding: 30px;
+    font-size: 30px;
+}
+
 #jeopardy-board{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -7,7 +22,7 @@
 .category, .question{
     padding: 20px;
     text-align: center;
-    background-color: aqua;
+    background-color: rgb(64, 0, 255);
     color: whitesmoke;
     font-size: 1.2em;
     cursor: pointer;
