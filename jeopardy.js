@@ -11,7 +11,6 @@ function createTable(){
 
         table.appendChild(row);
 
-        table.border = '1';
 
         document.body.appendChild(table);
     }
