@@ -1,33 +1,35 @@
-body{
-    background: rgb(251,63,185);
-background: radial-gradient(circle, rgba(251,63,185,0.829059829059829) 0%, rgba(194,70,252,0.7264957264957265) 100%);
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: blue;
 }
 
 h1{
-    text-align: center;
-    color:black;
-    background-color: purple;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin: 1em;
-    padding: 30px;
-    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#jeopardy-board{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+.jeopardy-table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
 }
 
-.category, .question{
-    padding: 20px;
+.jeopardy-table th, .jeopardy-table td {
+    border: 5px solid #000;
+    padding: 10px;
     text-align: center;
-    background-color: rgb(64, 0, 255);
-    color: whitesmoke;
-    font-size: 1.2em;
     cursor: pointer;
 }
 
-#question-section{
+.jeopardy-cell:hover {
+    background-color: #f0f0f0;
+}
+
+button {
     margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
 }
