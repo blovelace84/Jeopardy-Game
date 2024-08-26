@@ -88,11 +88,12 @@ function displayQuestion(question, answer) {
 
 // Example categories (replace with categories you want to show)
 const categories = [
-    { id: 1, title: "Category 1" },
-    { id: 2, title: "Category 2" },
-    { id: 3, title: "Category 3" },
-    { id: 4, title: "Category 4" },
-    { id: 5, title: "Category 5" }
+    { id: 2, title: "baseball" },
+    { id: 3, title: "odd jobs" },
+    { id: 4, title: "movies" },
+    { id: 6, title: "\"cat\" egory"},
+    { id: 8, title: "time" },
+    { id: 9, title: "dining out" }
 ];
 
 // Initialize the game with specified categories
