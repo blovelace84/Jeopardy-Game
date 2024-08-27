@@ -1,37 +1,53 @@
-// Function to create the Jeopardy table
-function createJeopardyTable(categories) {
-    // Create a new table element
+const categories = [
+    { id: 2, title: "baseball" },
+    { id: 3, title: "odd jobs" },
+    { id: 4, title: "movies" },
+    { id: 8, title: "time" },
+    { id: 9, title: "dining out" },
+    // Add more categories as needed
+];
+
+function createJeopardyTable() {
     const table = document.createElement('table');
     table.classList.add('jeopardy-table');
 
-    // Append header and rows
-    table.appendChild(createTableHeader(categories));
-    table.appendChild(createTableBody(categories));
+    const categoryPromises = categories.map(category =>
+        fetchQuestions(category.id).then(questions => ({ ...category, questions }))
+    );
 
-    // Append the table to the body or any other container
-    document.body.appendChild(table);
+    Promise.all(categoryPromises).then(categoryData => {
+        table.appendChild(createTableHeader(categories.map(cat => cat.title)));
+        table.appendChild(createTableBody(categoryData));
+
+        document.getElementById('game-board').appendChild(table);
+    }).catch(error => console.error('Error fetching categories:', error));
 }
 
-// Function to create the table header
-function createTableHeader(categories) {
+function fetchQuestions(categoryId) {
+    return fetch(`https://rithm-jeopardy.herokuapp.com/api/category?id=2`)
+        .then(response => response.json())
+        .then(data => data.clues)
+        .catch(error => console.error('Error fetching questions:', error));
+}
+
+function createTableHeader(categoryTitles) {
     const headerRow = document.createElement('tr');
-    categories.forEach(category => {
+    categoryTitles.forEach(title => {
         const headerCell = document.createElement('th');
-        headerCell.textContent = category.title;
+        headerCell.textContent = title;
         headerRow.appendChild(headerCell);
     });
     return headerRow;
 }
 
-// Function to create the table body with rows and cells
-function createTableBody(categories) {
+function createTableBody(categoryData) {
     const tbody = document.createElement('tbody');
 
-    // Assume 5 rows for simplicity
     for (let i = 0; i < 5; i++) {
         const row = document.createElement('tr');
-        categories.forEach(category => {
-            row.appendChild(createQuestionCell(category, (i + 1) * 100));
+        categoryData.forEach(({ title, questions }) => {
+            const question = questions.find(q => q.value === (i + 1) * 100);
+            row.appendChild(createQuestionCell(question));
         });
         tbody.appendChild(row);
     }
@@ -39,62 +55,35 @@ function createTableBody(categories) {
     return tbody;
 }
 
-// Function to create each cell with a point value and event handler
-function createQuestionCell(category, pointValue) {
+function createQuestionCell(question) {
     const cell = document.createElement('td');
-    cell.textContent = `$${pointValue}`;
-    cell.dataset.categoryId = category.id;
-    cell.dataset.pointValue = pointValue;
-    cell.classList.add('jeopardy-cell');
-    cell.onclick = fetchQuestion;
+    if (question) {
+        cell.textContent = `$${question.value}`;
+        cell.dataset.question = question.question;
+        cell.dataset.answer = question.answer;
+        cell.classList.add('jeopardy-cell');
+        cell.onclick = displayQuestion;
+    } else {
+        cell.textContent = 'N/A';
+        cell.classList.add('jeopardy-cell');
+    }
     return cell;
 }
 
-// Function to fetch and display the question when a cell is clicked
-function fetchQuestion(event) {
+function displayQuestion(event) {
     const cell = event.target;
-    const categoryId = cell.dataset.categoryId;
-    const pointValue = cell.dataset.pointValue;
+    const question = cell.dataset.question;
+    const answer = cell.dataset.answer;
 
-    // Fetch the question from the API
-    fetch(`https://jservice.io/api/clues?category=${categoryId}&value=${pointValue}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0) {
-                const question = data[0].question;
-                const answer = data[0].answer;
-
-                // Display the question and set up for showing the answer
-                displayQuestion(question, answer);
-            } else {
-                alert('No question found for this point value.');
-            }
-        });
-}
-
-// Function to display the question and set up the answer reveal
-function displayQuestion(question, answer) {
     const questionDiv = document.getElementById('question');
     questionDiv.innerHTML = `
         <p>${question}</p>
         <button id="show-answer">Show Answer</button>
     `;
 
-    // Set up event listener to show the answer
     document.getElementById('show-answer').onclick = () => {
         questionDiv.innerHTML += `<p><strong>Answer:</strong> ${answer}</p>`;
     };
 }
 
-// Example categories (replace with categories you want to show)
-const categories = [
-    { id: 2, title: "baseball" },
-    { id: 3, title: "odd jobs" },
-    { id: 4, title: "movies" },
-    { id: 6, title: "\"cat\" egory"},
-    { id: 8, title: "time" },
-    { id: 9, title: "dining out" }
-];
-
-// Initialize the game with specified categories
-createJeopardyTable(categories);
+createJeopardyTable(); // Call the function to create the game board
