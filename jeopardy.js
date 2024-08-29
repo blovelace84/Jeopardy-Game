@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const categories = [
     { id: 2, title: "Science" },
     { id: 3, title: "History" },
@@ -85,3 +86,5 @@ function displayQuestion(event) {
 }
 
 createJeopardyTable(); // Call the function to create the game board
+=======
+>>>>>>> parent of a20d4c8 (Update html css and js)

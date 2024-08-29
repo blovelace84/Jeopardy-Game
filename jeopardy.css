@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #game-board, #question{
     display: none;
 }
@@ -11,5 +12,19 @@ button{
     padding: 10px 20px;
     font-size: 16px;
     margin-top: 20px;
+=======
+#jeopardy-board{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.category, .question{
+    padding: 20px;
+    text-align: center;
+    background-color: aqua;
+    color: whitesmoke;
+    font-size: 1.2em;
+>>>>>>> parent of a20d4c8 (Update html css and js)
     cursor: pointer;
 }
