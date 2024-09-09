@@ -8,11 +8,9 @@ const categories = [
     { id: 9, title: 'dining out' }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
-    createGameBoard(categories);
-});
+document.addEventListener('DOMContentLoaded', () => createGameBoard(categories));
 
-async function createGameBoard(categories) {
+function createGameBoard(categories) {
     const table = document.getElementById('jeopardy-table');
     const headerRow = document.createElement('tr');
 
@@ -34,9 +32,7 @@ async function createGameBoard(categories) {
             cell.dataset.questionIndex = i;
 
             // Add click event to fetch and display the question
-            cell.addEventListener('click', async () => {
-                await fetchAndDisplayQuestion(category.id, i);
-            });
+            cell.addEventListener('click', async () => await fetchAndDisplayQuestion(category.id, i));
 
             row.appendChild(cell);
         });
@@ -52,9 +48,7 @@ async function fetchAndDisplayQuestion(categoryId, questionIndex) {
 
         console.log('Fetched data:', data);
         if(questionIndex < data.clues.length){
-            const question = data.clues[questionIndex].question;
-            const answer = data.clues[questionIndex].answer;
-
+            const {question, answer} = data.clues[questionIndex];
             displayQuestion(question, answer);
         }else{
             console.error('Question index out of bounds.');
